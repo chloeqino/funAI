@@ -1,11 +1,17 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, React } from "react";
+import HttpClient from "./HttpClient";
 
 function App() {
   useEffect(() => {
-    console.log(process.env.REACT_APP_APIKEY);
-  });
+    //console.log(process.env.REACT_APP_APIKEY);
+    HttpClient.getResponse().then((data) => {
+      data.text().then((textdata) => {
+        console.log(JSON.parse(textdata).choices[0].text);
+      });
+    });
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
